@@ -43,7 +43,7 @@ namespace AlertPoup
         {
             InitializeComponent();
 
-            (new Core.DropShadow()).ApplyShadows(this);
+            (new Aparence.DropShadow()).ApplyShadows(this);
 
             this.ShowInTaskbar = false;
         }

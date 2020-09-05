@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AlertPoup.Core
+namespace AlertPoup.Aparence
 {
     public class DropShadow
     {

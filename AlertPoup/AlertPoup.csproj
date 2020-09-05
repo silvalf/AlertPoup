@@ -51,7 +51,7 @@
     <Compile Include="AlertForm.Designer.cs">
       <DependentUpon>AlertForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\DropShadow.cs" />
+    <Compile Include="Aparence\DropShadow.cs" />
     <Compile Include="Extensions\InvokeExtensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
