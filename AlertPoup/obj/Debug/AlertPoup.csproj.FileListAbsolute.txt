@@ -1,0 +1,11 @@
+C:\Repositorio\AlertPoup\AlertPoup\bin\Debug\AlertPoup.exe.config
+C:\Repositorio\AlertPoup\AlertPoup\bin\Debug\AlertPoup.exe
+C:\Repositorio\AlertPoup\AlertPoup\bin\Debug\AlertPoup.pdb
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.AlertForm.resources
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.Form1.resources
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.Properties.Resources.resources
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.GenerateResource.cache
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.CoreCompileInputs.cache
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.exe
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.pdb
+C:\Repositorio\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csprojAssemblyReference.cache
