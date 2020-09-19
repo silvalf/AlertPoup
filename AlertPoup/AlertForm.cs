@@ -19,12 +19,15 @@ namespace AlertPoup
 {
     public partial class AlertForm : Form
     {
-        static Queue<Tuple<Action<string, AlertType>, string, AlertType>> _queueAlert = new Queue<Tuple<Action<string, AlertType>, string, AlertType>>();
+        static Queue<Tuple<Action<string, string, AlertType>, string, string, AlertType>> _queueAlert =
+            new Queue<Tuple<Action<string, string, AlertType>, string, string, AlertType>>();
 
         private int x;
         private int y;
 
         private int _maxSecondsVisible = (int)TimeSpan.FromSeconds(5).TotalMilliseconds;
+
+        public string Title { get; private set; }
 
         public int MaxSecondsVisible
         {
@@ -63,10 +66,19 @@ namespace AlertPoup
             this.MaxAlertDisplayed = configuration.MaxAlertDisplayed;
             this.MaxSecondsVisible = configuration.MaxSecondsVisible;
             this.Direction = configuration.Direction;
+            this.lblTitle.Text = configuration.Title;
         }
 
         public void ShowAlert(string message, AlertType type)
         {
+            Title = Enum.GetName(typeof(AlertType), type);
+            ShowAlert(Title, message, type);
+        }
+
+        public void ShowAlert(string title, string message, AlertType type)
+        {
+            Title = title;
+
             this.Opacity = 0.0;
             this.StartPosition = FormStartPosition.Manual;
 
@@ -76,7 +88,7 @@ namespace AlertPoup
 
             if (alertVisiblesCount >= MaxAlertDisplayed)
             {
-                AddAlertInQueue(message, type);
+                AddAlertInQueue(Title, message, type);
                 return;
             }
 
@@ -101,6 +113,7 @@ namespace AlertPoup
 
             ChangeTypeAlert(type);
 
+            this.lblTitle.Text = Title;
             this.lblMessage.Text = message;
 
             this.Show();
@@ -109,6 +122,7 @@ namespace AlertPoup
             this.timer1.Interval = 1;
             this.timer1.Start();
         }
+
 
         private void DefineDirectionAndLocation(int countAlertVisible, AlertDirection direction)
         {
@@ -148,22 +162,18 @@ namespace AlertPoup
             switch (type)
             {
                 case AlertType.Success:
-                    this.lblTitulo.Text = "Sucesso";
                     this.imgIcon.Image = Resources.ok_45px;
                     this.BackColor = Color.SeaGreen;
                     break;
                 case AlertType.Info:
-                    this.lblTitulo.Text = "Informação";
                     this.imgIcon.Image = Resources.info_45px;
                     this.BackColor = Color.RoyalBlue;
                     break;
                 case AlertType.Warning:
-                    this.lblTitulo.Text = "Aviso";
                     this.imgIcon.Image = Resources.warning_shield_45px;
                     this.BackColor = Color.DarkOrange;
                     break;
                 case AlertType.Erro:
-                    this.lblTitulo.Text = "Erro";
                     this.imgIcon.Image = Resources.sad_cloud_45px;
                     this.BackColor = Color.DarkRed;
                     break;
@@ -235,10 +245,14 @@ namespace AlertPoup
 
         }
 
-        private void AddAlertInQueue(string message, AlertType type)
+        private void AddAlertInQueue(string title, string message, AlertType type)
         {
-            _queueAlert.Enqueue(new Tuple<Action<string, AlertType>, string, AlertType>(
-                                                   delegate (string messageParam, AlertType typeParam) { ShowAlert(message, type); },
+            _queueAlert.Enqueue(new Tuple<Action<string, string, AlertType>, string, string, AlertType>(
+                                                   delegate (string titleParam, string messageParam, AlertType typeParam)
+                                                   {
+                                                       ShowAlert(title, message, type);
+                                                   },
+                                                   title,
                                                    message,
                                                    type));
         }
@@ -249,7 +263,7 @@ namespace AlertPoup
             {
                 var callback = _queueAlert.Peek();
 
-                callback.Item1.Invoke(callback.Item2, callback.Item3);
+                callback.Item1.Invoke(callback.Item2, callback.Item3, callback.Item4);
 
                 _queueAlert.Dequeue();
             }

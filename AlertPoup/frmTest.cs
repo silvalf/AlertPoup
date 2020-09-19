@@ -26,7 +26,15 @@ namespace AlertPoup
             formAlert.MaxSecondsVisible = TryConvertInt(txtMaxSecondsVisible.Text);
             formAlert.MaxAlertDisplayed = TryConvertInt(txtMaxAlertsVisible.Text);
             formAlert.Direction = rdoShowBottom.Checked ? AlertDirection.Bottom : AlertDirection.Top;
-            formAlert.ShowAlert(message, type);
+
+            if (chkWithTitle.Checked)
+            {
+                formAlert.ShowAlert(txtTitle.Text, message, type);
+            }
+            else
+            {
+                formAlert.ShowAlert(message, type);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)

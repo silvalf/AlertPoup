@@ -10,6 +10,7 @@ namespace AlertPoup
     {
         int MaxSecondsVisible { get; set; }
         int MaxAlertDisplayed { get; set; }
+        string Title { get; set; }
         AlertDirection Direction { get; set; }
     }
 }

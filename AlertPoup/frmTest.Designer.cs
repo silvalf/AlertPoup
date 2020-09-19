@@ -33,6 +33,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAutoManageQueue = new System.Windows.Forms.CheckBox();
             this.lblMaxAlertsVisible = new System.Windows.Forms.Label();
             this.lblMaxSecondsVisible = new System.Windows.Forms.Label();
             this.txtMaxAlertsVisible = new System.Windows.Forms.TextBox();
@@ -44,7 +45,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.lblMessage = new System.Windows.Forms.Label();
-            this.chkAutoManageQueue = new System.Windows.Forms.CheckBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.chkWithTitle = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackMaxAlertsVisible)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMaxSecondsVisible)).BeginInit();
@@ -128,12 +131,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configure Alert";
             // 
+            // chkAutoManageQueue
+            // 
+            this.chkAutoManageQueue.AutoSize = true;
+            this.chkAutoManageQueue.Enabled = false;
+            this.chkAutoManageQueue.Location = new System.Drawing.Point(234, 35);
+            this.chkAutoManageQueue.Name = "chkAutoManageQueue";
+            this.chkAutoManageQueue.Size = new System.Drawing.Size(156, 23);
+            this.chkAutoManageQueue.TabIndex = 8;
+            this.chkAutoManageQueue.Text = "Auto manage queue";
+            this.chkAutoManageQueue.UseVisualStyleBackColor = true;
+            // 
             // lblMaxAlertsVisible
             // 
             this.lblMaxAlertsVisible.AutoSize = true;
             this.lblMaxAlertsVisible.Location = new System.Drawing.Point(147, 99);
             this.lblMaxAlertsVisible.Name = "lblMaxAlertsVisible";
-            this.lblMaxAlertsVisible.Size = new System.Drawing.Size(179, 13);
+            this.lblMaxAlertsVisible.Size = new System.Drawing.Size(222, 19);
             this.lblMaxAlertsVisible.TabIndex = 7;
             this.lblMaxAlertsVisible.Text = "Max alerts visible (min. 0 - max x)";
             // 
@@ -142,7 +156,7 @@
             this.lblMaxSecondsVisible.AutoSize = true;
             this.lblMaxSecondsVisible.Location = new System.Drawing.Point(147, 70);
             this.lblMaxSecondsVisible.Name = "lblMaxSecondsVisible";
-            this.lblMaxSecondsVisible.Size = new System.Drawing.Size(199, 13);
+            this.lblMaxSecondsVisible.Size = new System.Drawing.Size(251, 19);
             this.lblMaxSecondsVisible.TabIndex = 6;
             this.lblMaxSecondsVisible.Text = "Max Seconds Visible  (min. 1 - max 10)";
             // 
@@ -150,7 +164,7 @@
             // 
             this.txtMaxAlertsVisible.Location = new System.Drawing.Point(6, 95);
             this.txtMaxAlertsVisible.Name = "txtMaxAlertsVisible";
-            this.txtMaxAlertsVisible.Size = new System.Drawing.Size(25, 22);
+            this.txtMaxAlertsVisible.Size = new System.Drawing.Size(25, 26);
             this.txtMaxAlertsVisible.TabIndex = 5;
             this.txtMaxAlertsVisible.Text = "1";
             this.txtMaxAlertsVisible.TextChanged += new System.EventHandler(this.txtMaxAlertsVisible_TextChanged);
@@ -159,7 +173,7 @@
             // 
             this.txtMaxSecondsVisible.Location = new System.Drawing.Point(6, 67);
             this.txtMaxSecondsVisible.Name = "txtMaxSecondsVisible";
-            this.txtMaxSecondsVisible.Size = new System.Drawing.Size(25, 22);
+            this.txtMaxSecondsVisible.Size = new System.Drawing.Size(25, 26);
             this.txtMaxSecondsVisible.TabIndex = 4;
             this.txtMaxSecondsVisible.Text = "1";
             this.txtMaxSecondsVisible.TextChanged += new System.EventHandler(this.txtMaxSecondsVisible_TextChanged);
@@ -190,20 +204,20 @@
             // rdoShowBottom
             // 
             this.rdoShowBottom.AutoSize = true;
-            this.rdoShowBottom.Location = new System.Drawing.Point(96, 35);
+            this.rdoShowBottom.Location = new System.Drawing.Point(105, 35);
             this.rdoShowBottom.Name = "rdoShowBottom";
-            this.rdoShowBottom.Size = new System.Drawing.Size(94, 17);
+            this.rdoShowBottom.Size = new System.Drawing.Size(115, 23);
             this.rdoShowBottom.TabIndex = 1;
-            this.rdoShowBottom.TabStop = true;
             this.rdoShowBottom.Text = "Show Bottom";
             this.rdoShowBottom.UseVisualStyleBackColor = true;
             // 
             // rdoShoTop
             // 
             this.rdoShoTop.AutoSize = true;
+            this.rdoShoTop.Checked = true;
             this.rdoShoTop.Location = new System.Drawing.Point(16, 35);
             this.rdoShoTop.Name = "rdoShoTop";
-            this.rdoShoTop.Size = new System.Drawing.Size(74, 17);
+            this.rdoShoTop.Size = new System.Drawing.Size(92, 23);
             this.rdoShoTop.TabIndex = 0;
             this.rdoShoTop.TabStop = true;
             this.rdoShoTop.Text = "Show Top";
@@ -215,13 +229,13 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold);
             this.label3.Location = new System.Drawing.Point(207, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 28);
+            this.label3.Size = new System.Drawing.Size(123, 35);
             this.label3.TabIndex = 4;
             this.label3.Text = "Test Alert";
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(18, 351);
+            this.txtMessage.Location = new System.Drawing.Point(18, 388);
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(440, 45);
@@ -231,28 +245,50 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(21, 334);
+            this.lblMessage.Location = new System.Drawing.Point(21, 368);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(52, 13);
+            this.lblMessage.Size = new System.Drawing.Size(63, 19);
             this.lblMessage.TabIndex = 6;
             this.lblMessage.Text = "Message";
             // 
-            // chkAutoManageQueue
+            // lblTitle
             // 
-            this.chkAutoManageQueue.AutoSize = true;
-            this.chkAutoManageQueue.Enabled = false;
-            this.chkAutoManageQueue.Location = new System.Drawing.Point(234, 35);
-            this.chkAutoManageQueue.Name = "chkAutoManageQueue";
-            this.chkAutoManageQueue.Size = new System.Drawing.Size(128, 17);
-            this.chkAutoManageQueue.TabIndex = 8;
-            this.chkAutoManageQueue.Text = "Auto manage queue";
-            this.chkAutoManageQueue.UseVisualStyleBackColor = true;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(21, 311);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(63, 19);
+            this.lblTitle.TabIndex = 8;
+            this.lblTitle.Text = "Message";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(18, 331);
+            this.txtTitle.Multiline = true;
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(440, 29);
+            this.txtTitle.TabIndex = 7;
+            this.txtTitle.Text = "Title suggestion";
+            // 
+            // chkWithTitle
+            // 
+            this.chkWithTitle.AutoSize = true;
+            this.chkWithTitle.Checked = true;
+            this.chkWithTitle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWithTitle.Location = new System.Drawing.Point(108, 308);
+            this.chkWithTitle.Name = "chkWithTitle";
+            this.chkWithTitle.Size = new System.Drawing.Size(91, 23);
+            this.chkWithTitle.TabIndex = 9;
+            this.chkWithTitle.Text = "With title";
+            this.chkWithTitle.UseVisualStyleBackColor = true;
             // 
             // frmTest
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(503, 455);
+            this.Controls.Add(this.chkWithTitle);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.label3);
@@ -292,6 +328,9 @@
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.CheckBox chkAutoManageQueue;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.CheckBox chkWithTitle;
     }
 }
 

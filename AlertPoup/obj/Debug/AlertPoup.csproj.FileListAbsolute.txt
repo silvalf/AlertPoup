@@ -20,13 +20,3 @@ C:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.GenerateRes
 C:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.CoreCompileInputs.cache
 C:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.exe
 C:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.pdb
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\bin\Debug\AlertPoup.exe.config
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\bin\Debug\AlertPoup.exe
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\bin\Debug\AlertPoup.pdb
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.AlertForm.resources
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.frmTest.resources
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.Properties.Resources.resources
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.GenerateResource.cache
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.csproj.CoreCompileInputs.cache
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.exe
-E:\Repositorio\GitHub\AlertPoup\AlertPoup\obj\Debug\AlertPoup.pdb
