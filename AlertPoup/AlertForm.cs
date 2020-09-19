@@ -25,6 +25,7 @@ namespace AlertPoup
         private int y;
 
         private int _maxSecondsVisible = (int)TimeSpan.FromSeconds(5).TotalMilliseconds;
+
         public int MaxSecondsVisible
         {
             get
@@ -35,8 +36,12 @@ namespace AlertPoup
             {
                 _maxSecondsVisible = (int)TimeSpan.FromSeconds(value).TotalMilliseconds;
             }
-        } 
+        }
+
         public AlertState State { get; private set; }
+
+        public AlertDirection Direction { get; set; } = AlertDirection.Bottom;
+
         public int MaxAlertDisplayed { get; set; } = 3;
 
         public AlertForm()
@@ -46,6 +51,18 @@ namespace AlertPoup
             (new Aparence.DropShadow()).ApplyShadows(this);
 
             this.ShowInTaskbar = false;
+        }
+
+        public void Configure(IConfigurationAlert configuration)
+        {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            this.MaxAlertDisplayed = configuration.MaxAlertDisplayed;
+            this.MaxSecondsVisible = configuration.MaxSecondsVisible;
+            this.Direction = configuration.Direction;
         }
 
         public void ShowAlert(string message, AlertType type)
@@ -74,9 +91,7 @@ namespace AlertPoup
                 {
                     this.Name = alertname;
 
-                    this.x = Screen.PrimaryScreen.WorkingArea.Width - this.Width + 15;
-                    this.y = Screen.PrimaryScreen.WorkingArea.Height - this.Height * i - 5 * i;
-                    this.Location = new Point(this.x, this.y);
+                    DefineDirectionAndLocation(i, Direction);
 
                     break;
                 }
@@ -95,12 +110,25 @@ namespace AlertPoup
             this.timer1.Start();
         }
 
-        private void AddAlertInQueue(string message, AlertType type)
+        private void DefineDirectionAndLocation(int countAlertVisible, AlertDirection direction)
         {
-            _queueAlert.Enqueue(new Tuple<Action<string, AlertType>, string, AlertType>(
-                                                   delegate (string messageParam, AlertType typeParam) { ShowAlert(message, type); },
-                                                   message,
-                                                   type));
+            const int padding = 5;
+
+            switch (direction)
+            {
+                case AlertDirection.Bottom:
+                    this.x = Screen.PrimaryScreen.WorkingArea.Width - this.Width + 15;
+                    this.y = Screen.PrimaryScreen.WorkingArea.Height - this.Height * countAlertVisible - padding * countAlertVisible;
+                    this.Location = new Point(this.x, this.y);
+                    break;
+                case AlertDirection.Top:
+                    this.x = Screen.PrimaryScreen.WorkingArea.Width - this.Width + 15;
+                    this.y = this.Height * countAlertVisible + padding * countAlertVisible;
+                    this.Location = new Point(this.x, this.y);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private static string TruncateMessage(string message)
@@ -207,12 +235,22 @@ namespace AlertPoup
 
         }
 
+        private void AddAlertInQueue(string message, AlertType type)
+        {
+            _queueAlert.Enqueue(new Tuple<Action<string, AlertType>, string, AlertType>(
+                                                   delegate (string messageParam, AlertType typeParam) { ShowAlert(message, type); },
+                                                   message,
+                                                   type));
+        }
+
         private static void CallAlertOfQueue()
         {
             if (_queueAlert.Count > 0)
             {
                 var callback = _queueAlert.Peek();
+
                 callback.Item1.Invoke(callback.Item2, callback.Item3);
+
                 _queueAlert.Dequeue();
             }
         }
@@ -234,76 +272,10 @@ namespace AlertPoup
         Erro
     }
 
-    //class CallbackAler
-    //{
-    //    private string _message;
-    //    private AlertType _alertType;
-
-    //    public CallbackAler(string message, AlertType type)
-    //    {
-    //        _message = message;
-    //        _alertType = type;
-    //    }
-
-    //    public void Show()
-    //    {
-
-    //    }
-    //}
-
-
-    //public enum Operation
-    //{
-    //    Sum,
-    //    Subtract,
-    //    Multiply
-    //}
-    //class Program
-    //{
-    //    static void Main(string[] args)
-    //    {
-    //        var opManager = new OperationManager(20, 10);
-    //        var result = opManager.Execute(Operation.Sum);
-    //        Console.WriteLine($"The result of the operation is {result}");
-    //        Console.ReadKey();
-    //    }
-    //}
-    //public class OperationManager
-    //{
-    //    private int _first;
-    //    private int _second;
-    //    public OperationManager(int first, int second)
-    //    {
-    //        _first = first;
-    //        _second = second;
-    //    }
-    //    private int Sum()
-    //    {
-    //        return _first + _second;
-    //    }
-    //    private int Subtract()
-    //    {
-    //        return _first - _second;
-    //    }
-    //    private int Multiply()
-    //    {
-    //        return _first * _second;
-    //    }
-    //    public int Execute(Operation operation)
-    //    {
-    //        switch (operation)
-    //        {
-    //            case Operation.Sum:
-    //                return Sum();
-    //            case Operation.Subtract:
-    //                return Subtract();
-    //            case Operation.Multiply:
-    //                return Multiply();
-    //            default:
-    //                return -1; //just to simulate
-    //        }
-    //    }
-    //}
-
+    public enum AlertDirection
+    {
+        Bottom,
+        Top
+    }
 
 }
