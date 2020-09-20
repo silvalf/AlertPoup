@@ -19,8 +19,9 @@ namespace AlertPoup
 {
     public partial class AlertForm : Form
     {
-        static Queue<Tuple<Action<string, string, AlertType>, string, string, AlertType>> _queueAlert =
-            new Queue<Tuple<Action<string, string, AlertType>, string, string, AlertType>>();
+        static Queue<Tuple<AlertDelegate, AlertParameters>> _queueAlert = new Queue<Tuple<AlertDelegate, AlertParameters>>();
+
+        delegate void AlertDelegate(string title, string message, AlertType type);
 
         private int x;
         private int y;
@@ -122,7 +123,6 @@ namespace AlertPoup
             this.timer1.Interval = 1;
             this.timer1.Start();
         }
-
 
         private void DefineDirectionAndLocation(int countAlertVisible, AlertDirection direction)
         {
@@ -247,14 +247,15 @@ namespace AlertPoup
 
         private void AddAlertInQueue(string title, string message, AlertType type)
         {
-            _queueAlert.Enqueue(new Tuple<Action<string, string, AlertType>, string, string, AlertType>(
-                                                   delegate (string titleParam, string messageParam, AlertType typeParam)
-                                                   {
-                                                       ShowAlert(title, message, type);
-                                                   },
-                                                   title,
-                                                   message,
-                                                   type));
+            var delegateItem = new Tuple<AlertDelegate, AlertParameters>
+                (item1: ShowAlert,
+                item2: new AlertParameters
+                {
+                    Title = title,
+                    Message = message,
+                    AlertType = type
+                });
+            _queueAlert.Enqueue(delegateItem);
         }
 
         private static void CallAlertOfQueue()
@@ -263,11 +264,20 @@ namespace AlertPoup
             {
                 var callback = _queueAlert.Peek();
 
-                callback.Item1.Invoke(callback.Item2, callback.Item3, callback.Item4);
-
+                var method = callback.Item1;
+                var parameters = callback.Item2;
+                method(parameters.Title, parameters.Message, parameters.AlertType);
+          
                 _queueAlert.Dequeue();
             }
         }
+    }
+
+    public class AlertParameters
+    {
+        public string Title { get; set; }
+        public string Message { get; set; }
+        public AlertType AlertType { get; set; }
     }
 
     public enum AlertState
